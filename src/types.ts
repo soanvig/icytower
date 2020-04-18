@@ -25,4 +25,5 @@ export interface Config {
   verticalAcceleration: number;
   verticalMaxVelocity: number;
   friction: number;
+  gravity: number;
 }

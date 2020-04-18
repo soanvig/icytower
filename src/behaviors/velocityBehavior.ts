@@ -16,7 +16,7 @@ export const velocityBehavior: MakeBehavior =
     }
 
     if (obj.y === 0 || obj.y === height - obj.height) {
-      obj.acceleration.y = 0;
+      // obj.acceleration.y = 0;
       obj.velocity.y = 0;
     }
   }

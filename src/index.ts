@@ -7,10 +7,11 @@ import { velocityBehavior } from './behaviors/velocityBehavior';
 import { accelerationBehavior } from './behaviors/accelerationBehavior';
 import { frictionBehavior } from './behaviors/frictionBehavior';
 import { config } from './config';
+import { gravityBehavior } from './behaviors/gravityBehavior';
 
 const initialState: GameState = {
-  width: 600,
-  height: 600,
+  width: 1000,
+  height: 1000,
   keys: [],
   objects: [
     {
@@ -25,6 +26,7 @@ const initialState: GameState = {
         moveableBehavior(config),
         accelerationBehavior(config),
         frictionBehavior(config),
+        gravityBehavior(config),
         velocityBehavior(config),
       ],
     }
@@ -43,6 +45,8 @@ appendElement(primaryCanvas);
 const render = (state: GameState) => {
   const ctx = primaryCanvas.getContext('2d')!;
   ctx.clearRect(0, 0, state.width, state.height);
+  ctx.fillStyle = 'aliceblue';
+  ctx.fillRect(0, 0, state.width, state.height);
 
   state.objects.forEach(object => {
     ctx.fillStyle = object.color;
