@@ -1,4 +1,5 @@
 export type Behavior = <T extends GameObject>(obj: T, state: Readonly<GameState>) => void;
+export type MakeBehavior = (config: Config) => Behavior;
 
 export interface GameObject {
   x: number;
@@ -16,4 +17,12 @@ export interface GameState {
   height: number;
   keys: string[];
   objects: GameObject[];
+}
+
+export interface Config {
+  horizontalAcceleration: number;
+  horizontalMaxVelocity: number;
+  verticalAcceleration: number;
+  verticalMaxVelocity: number;
+  friction: number;
 }

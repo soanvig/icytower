@@ -5,6 +5,8 @@ import { measureFps } from './engine/fps';
 import { moveableBehavior } from './behaviors/moveableBehavior';
 import { velocityBehavior } from './behaviors/velocityBehavior';
 import { accelerationBehavior } from './behaviors/accelerationBehavior';
+import { frictionBehavior } from './behaviors/frictionBehavior';
+import { config } from './config';
 
 const initialState: GameState = {
   width: 600,
@@ -20,9 +22,10 @@ const initialState: GameState = {
       acceleration: { x: 0, y: 0 },
       color: '#000',
       behaviors: [
-        moveableBehavior(),
-        accelerationBehavior(),
-        velocityBehavior(),
+        moveableBehavior(config),
+        accelerationBehavior(config),
+        frictionBehavior(config),
+        velocityBehavior(config),
       ],
     }
   ]

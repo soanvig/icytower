@@ -1,17 +1,20 @@
-import { Behavior } from '../types';
+import { MakeBehavior } from '../types';
 
-const acceleration = 1;
-export const moveableBehavior: () => Behavior =
-  () => (obj, { keys }) => {
+export const moveableBehavior: MakeBehavior =
+  (config) => (obj, { keys }) => {
     if (keys.includes('ArrowRight')) {
-      obj.acceleration.x = acceleration;
+      obj.acceleration.x = config.horizontalAcceleration;
     }
 
     if (keys.includes('ArrowLeft')) {
-      obj.acceleration.x = -acceleration;
+      obj.acceleration.x = -config.horizontalAcceleration;
     }
 
     if (keys.includes('ArrowLeft') && keys.includes('ArrowRight')) {
+      obj.acceleration.x = 0;
+    }
+
+    if (!keys.includes('ArrowLeft') && !keys.includes('ArrowRight')) {
       obj.acceleration.x = 0;
     }
   }

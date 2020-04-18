@@ -1,10 +1,9 @@
-import { Behavior } from '../types';
+import { MakeBehavior } from '../types';
 
-export const velocityBehavior: () => Behavior =
+export const velocityBehavior: MakeBehavior =
   () => (obj, { width, height }) => {
     obj.x += obj.velocity.x;
     obj.y += obj.velocity.y;
-    console.log(obj.acceleration);
 
     // Limit movement
     obj.x = Math.min(Math.max(obj.x, 0), width - obj.width);
