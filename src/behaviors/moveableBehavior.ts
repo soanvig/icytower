@@ -1,7 +1,8 @@
 import { MakeBehavior } from '../types';
+import { isColliding } from '../utils/isColliding';
 
 export const moveableBehavior: MakeBehavior =
-  (config) => (obj, { keys, height }) => {
+  (config) => (obj, { keys, objects }) => {
     if (keys.includes('ArrowRight')) {
       obj.acceleration.x = config.horizontalAcceleration;
     }
@@ -18,7 +19,7 @@ export const moveableBehavior: MakeBehavior =
       obj.acceleration.x = 0;
     }
 
-    if (keys.includes('Space') && (obj.y + obj.height) === height) {
+    if (keys.includes('Space') && isColliding(obj, objects)) {
       // velocity is set, because jump is momentary
       obj.velocity.y = -config.verticalAcceleration;
     }

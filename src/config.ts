@@ -1,7 +1,7 @@
 import { Config } from './types';
 
 export const config: Config = {
-  horizontalAcceleration: 2,
+  horizontalAcceleration: 1.75,
   horizontalMaxVelocity: 15,
   verticalAcceleration: 37,
   verticalMaxVelocity: 100,

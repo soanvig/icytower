@@ -1,7 +1,8 @@
 import { MakeBehavior } from '../types';
+import { isColliding } from '../utils/isColliding';
 
 export const velocityBehavior: MakeBehavior =
-  () => (obj, { width, height }) => {
+  () => (obj, { width, height, objects }) => {
     obj.x += obj.velocity.x;
     obj.y += obj.velocity.y;
 
@@ -15,8 +16,11 @@ export const velocityBehavior: MakeBehavior =
       obj.velocity.x = 0;
     }
 
-    if (obj.y === 0 || obj.y === height - obj.height) {
-      // obj.acceleration.y = 0;
+    if (
+      obj.velocity.y >= 0
+      && isColliding(obj, objects)
+    ) {
+      obj.acceleration.y = 0;
       obj.velocity.y = 0;
     }
   }

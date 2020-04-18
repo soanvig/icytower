@@ -1,6 +1,11 @@
 export type Behavior = <T extends GameObject>(obj: T, state: Readonly<GameState>) => void;
 export type MakeBehavior = (config: Config) => Behavior;
 
+export enum ObjectType {
+  Player = 'player',
+  Other = 'other',
+}
+
 export interface GameObject {
   x: number;
   y: number;
@@ -10,6 +15,7 @@ export interface GameObject {
   behaviors: Behavior[];
   velocity: { x: number, y: number };
   acceleration: { x: number, y: number };
+  type: ObjectType;
 }
 
 export interface GameState {

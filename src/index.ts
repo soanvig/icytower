@@ -1,5 +1,5 @@
 import { createGame$ } from './engine/game';
-import { GameState } from './types';
+import { GameState, ObjectType } from './types';
 import { tap } from 'rxjs/operators';
 import { measureFps } from './engine/fps';
 import { moveableBehavior } from './behaviors/moveableBehavior';
@@ -15,6 +15,50 @@ const initialState: GameState = {
   keys: [],
   objects: [
     {
+      x: 100,
+      y: 800,
+      height: 50,
+      width: 500,
+      velocity: { x: 0, y: 0 },
+      acceleration: { x: 0, y: 0 },
+      color: 'green',
+      behaviors: [],
+      type: ObjectType.Other,
+    },
+    {
+      x: 200,
+      y: 600,
+      height: 50,
+      width: 300,
+      velocity: { x: 0, y: 0 },
+      acceleration: { x: 0, y: 0 },
+      color: 'green',
+      behaviors: [],
+      type: ObjectType.Other,
+    },
+    {
+      x: 150,
+      y: 400,
+      height: 50,
+      width: 400,
+      velocity: { x: 0, y: 0 },
+      acceleration: { x: 0, y: 0 },
+      color: 'green',
+      behaviors: [],
+      type: ObjectType.Other,
+    },
+    {
+      x: 0,
+      y: 950,
+      height: 50,
+      width: 1000,
+      velocity: { x: 0, y: 0 },
+      acceleration: { x: 0, y: 0 },
+      color: 'green',
+      behaviors: [],
+      type: ObjectType.Other,
+    },
+    {
       x: 50,
       y: 50,
       height: 50,
@@ -29,7 +73,8 @@ const initialState: GameState = {
         gravityBehavior(config),
         velocityBehavior(config),
       ],
-    }
+      type: ObjectType.Player,
+    },
   ]
 }
 
@@ -48,9 +93,17 @@ const render = (state: GameState) => {
   ctx.fillStyle = 'aliceblue';
   ctx.fillRect(0, 0, state.width, state.height);
 
-  state.objects.forEach(object => {
+  state.objects.forEach((object, i) => {
     ctx.fillStyle = object.color;
     ctx.fillRect(object.x, object.y, object.width, object.height);
+
+    if (object.type === ObjectType.Player) {
+      ctx.font = '16px sans-serif';
+      ctx.fillText(`Velocity X: ${object.velocity.x}`, 10, 20);
+      ctx.fillText(`Velocity Y: ${object.velocity.y}`, 10, 40);
+      ctx.fillText(`Acceleration X: ${object.acceleration.x}`, 10, 60);
+      ctx.fillText(`Acceleration Y: ${object.acceleration.y}`, 10, 80);
+    }
   });
 }
 
