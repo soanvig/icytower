@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import { measureFps } from './engine/fps';
 import { moveableBehavior } from './behaviors/moveableBehavior';
 import { velocityBehavior } from './behaviors/velocityBehavior';
+import { accelerationBehavior } from './behaviors/accelerationBehavior';
 
 const initialState: GameState = {
   width: 600,
@@ -15,10 +16,12 @@ const initialState: GameState = {
       y: 50,
       height: 50,
       width: 50,
-      velocity: [0, 0],
+      velocity: { x: 0, y: 0 },
+      acceleration: { x: 0, y: 0 },
       color: '#000',
       behaviors: [
         moveableBehavior(),
+        accelerationBehavior(),
         velocityBehavior(),
       ],
     }

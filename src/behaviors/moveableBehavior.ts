@@ -1,17 +1,17 @@
 import { Behavior } from '../types';
 
-const speed = 5;
+const acceleration = 1;
 export const moveableBehavior: () => Behavior =
-  () => (obj, { keys, width, height }) => {
+  () => (obj, { keys }) => {
     if (keys.includes('ArrowRight')) {
-      obj.velocity[0] = speed;
+      obj.acceleration.x = acceleration;
     }
 
     if (keys.includes('ArrowLeft')) {
-      obj.velocity[0] = -speed;
+      obj.acceleration.x = -acceleration;
     }
 
     if (keys.includes('ArrowLeft') && keys.includes('ArrowRight')) {
-      obj.velocity[0] = 0;
+      obj.acceleration.x = 0;
     }
   }

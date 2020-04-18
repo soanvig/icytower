@@ -7,7 +7,8 @@ export interface GameObject {
   height: number;
   color: string;
   behaviors: Behavior[];
-  velocity: [number, number]; // [x, y]
+  velocity: { x: number, y: number };
+  acceleration: { x: number, y: number };
 }
 
 export interface GameState {
