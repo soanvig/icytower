@@ -10,6 +10,8 @@ export interface GameObject {
 }
 
 export interface GameState {
+  width: number;
+  height: number;
   keys: number[];
   objects: GameObject[];
 }
