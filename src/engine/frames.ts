@@ -1,5 +1,5 @@
-import { share, distinct, scan } from 'rxjs/operators';
-import { Observable, pipe } from 'rxjs';
+import { share } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 const ofFrames = () => new Observable<number>(observer => {
   const handler = () => {
@@ -12,15 +12,6 @@ const ofFrames = () => new Observable<number>(observer => {
   handler();
 });
 
-const limitToFps = (fps: number) => pipe(
-  scan<number, number>((prevTime, time) => {
-    const delta = time - prevTime;
-    return delta > 1 / fps ? time : prevTime;
-  }, 0),
-  distinct(),
-)
-
 export const frames$ = ofFrames().pipe(
-  limitToFps(60),
   share(),
 );

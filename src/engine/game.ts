@@ -8,16 +8,18 @@ import { moveableBehavior } from '../behaviors/moveableBehavior';
 
 const initialState: GameState = {
   keys: [],
-  player: {
-    x: 50,
-    y: 50,
-    height: 50,
-    width: 50,
-    color: '#000',
-    behaviors: [
-      moveableBehavior(),
-    ],
-  }
+  objects: [
+    {
+      x: 50,
+      y: 50,
+      height: 50,
+      width: 50,
+      color: '#000',
+      behaviors: [
+        moveableBehavior(),
+      ],
+    }
+  ]
 }
 
 const framedKeys$: Observable<number[]> = keys$.pipe(
@@ -34,16 +36,18 @@ export const game$ = frames$.pipe(
       keys,
     };
 
-    const player = state.player.behaviors.reduce((player, applyBehavior) => {
-      const clonedPlayer = cloneDeep(player);
-      applyBehavior(clonedPlayer, state);
+    const objects = state.objects.map(object => {
+      return object.behaviors.reduce((obj, applyBehavior) => {
+        const clonedObject = cloneDeep(obj);
+        applyBehavior(clonedObject, state);
 
-      return clonedPlayer;
-    }, state.player);
+        return clonedObject;
+      }, object);
+    });
 
     return {
       ...state,
-      player,
+      objects,
     };
   }, initialState),
 );

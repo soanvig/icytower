@@ -11,5 +11,5 @@ export interface GameObject {
 
 export interface GameState {
   keys: number[];
-  player: GameObject;
+  objects: GameObject[];
 }

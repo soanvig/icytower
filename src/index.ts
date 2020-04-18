@@ -1,5 +1,7 @@
 import { game$ } from './engine/game';
 import { GameState } from './types';
+import { tap } from 'rxjs/operators';
+import { measureFps } from './engine/fps';
 
 const createCanvas = () => document.createElement('canvas');
 const appendElement = (el: HTMLElement) => document.body.appendChild(el);
@@ -14,11 +16,16 @@ const render = (state: GameState) => {
   const ctx = primaryCanvas.getContext('2d')!;
   ctx.clearRect(0, 0, 600, 600);
 
-  ctx.fillStyle = state.player.color;
-  ctx.fillRect(state.player.x, state.player.y, state.player.width, state.player.height);
+  state.objects.forEach(object => {
+    ctx.fillStyle = object.color;
+    ctx.fillRect(object.x, object.y, object.width, object.height);
+  });
 }
 
-game$.subscribe(render);
+game$.pipe(
+  tap(render),
+  measureFps(),
+).subscribe(fps => console.info(`FPS: ${fps.toFixed(2)}`));
 
 
 
