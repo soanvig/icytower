@@ -3,6 +3,7 @@ import { GameState } from './types';
 import { tap } from 'rxjs/operators';
 import { measureFps } from './engine/fps';
 import { moveableBehavior } from './behaviors/moveableBehavior';
+import { velocityBehavior } from './behaviors/velocityBehavior';
 
 const initialState: GameState = {
   width: 600,
@@ -14,9 +15,11 @@ const initialState: GameState = {
       y: 50,
       height: 50,
       width: 50,
+      velocity: [0, 0],
       color: '#000',
       behaviors: [
         moveableBehavior(),
+        velocityBehavior(),
       ],
     }
   ]
@@ -42,7 +45,7 @@ const render = (state: GameState) => {
 }
 
 createGame$(initialState).pipe(
-  tap(render),
+  tap({ next: render }),
   measureFps(),
 ).subscribe(fps => console.info(`FPS: ${fps.toFixed(2)}`));
 

@@ -5,7 +5,7 @@ import { last, cloneDeep } from 'lodash';
 import { Observable } from 'rxjs';
 import { GameState } from '../types';
 
-const framedKeys$: Observable<number[]> = keys$.pipe(
+const framedKeys$: Observable<string[]> = keys$.pipe(
   buffer(frames$), // some keys pressed in between frames may get lost
   map(bufferedKeys => last(bufferedKeys)),
   filter(Boolean) as any,

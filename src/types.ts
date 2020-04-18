@@ -7,11 +7,12 @@ export interface GameObject {
   height: number;
   color: string;
   behaviors: Behavior[];
+  velocity: [number, number]; // [x, y]
 }
 
 export interface GameState {
   width: number;
   height: number;
-  keys: number[];
+  keys: string[];
   objects: GameObject[];
 }
