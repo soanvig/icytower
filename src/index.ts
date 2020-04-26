@@ -14,7 +14,20 @@ const initialState: GameState = {
   width: 1000,
   height: 1000,
   keys: [],
+  camera: { x: 0, y: 500 },
   objects: [
+    {
+      id: 'w0',
+      x: 100,
+      y: 200,
+      height: 50,
+      width: 500,
+      velocity: { x: 0, y: 0 },
+      acceleration: { x: 0, y: 0 },
+      color: 'green',
+      behaviors: [],
+      type: ObjectType.Other,
+    },
     {
       id: 'w1',
       x: 100,

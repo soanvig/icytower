@@ -24,6 +24,7 @@ export interface GameState {
   height: number;
   keys: string[];
   objects: GameObject[];
+  camera: { x: number; y: number; };
 }
 
 export interface Config {
