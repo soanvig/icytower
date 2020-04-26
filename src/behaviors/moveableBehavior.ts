@@ -21,6 +21,7 @@ export const moveableBehavior: MakeBehavior =
 
     if (keys.includes('Space') && isColliding(obj, objects)) {
       // velocity is set, because jump is momentary
-      obj.velocity.y = -config.verticalAcceleration;
+      const horizontalFactor = config.verticalAccelerationHorizontalFactor * Math.abs(obj.velocity.x);
+      obj.velocity.y = -(config.verticalAcceleration + horizontalFactor);
     }
   }

@@ -7,6 +7,7 @@ export enum ObjectType {
 }
 
 export interface GameObject {
+  id: string;
   x: number;
   y: number;
   width: number;
@@ -29,6 +30,7 @@ export interface Config {
   horizontalAcceleration: number;
   horizontalMaxVelocity: number;
   verticalAcceleration: number;
+  verticalAccelerationHorizontalFactor: number;
   verticalMaxVelocity: number;
   friction: number;
   gravity: number;

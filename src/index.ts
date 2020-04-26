@@ -8,6 +8,7 @@ import { accelerationBehavior } from './behaviors/accelerationBehavior';
 import { frictionBehavior } from './behaviors/frictionBehavior';
 import { config } from './config';
 import { gravityBehavior } from './behaviors/gravityBehavior';
+import { isColliding } from './utils/isColliding';
 
 const initialState: GameState = {
   width: 1000,
@@ -15,6 +16,7 @@ const initialState: GameState = {
   keys: [],
   objects: [
     {
+      id: 'w1',
       x: 100,
       y: 800,
       height: 50,
@@ -26,6 +28,7 @@ const initialState: GameState = {
       type: ObjectType.Other,
     },
     {
+      id: 'w2',
       x: 200,
       y: 600,
       height: 50,
@@ -37,6 +40,7 @@ const initialState: GameState = {
       type: ObjectType.Other,
     },
     {
+      id: 'w3',
       x: 150,
       y: 400,
       height: 50,
@@ -48,6 +52,7 @@ const initialState: GameState = {
       type: ObjectType.Other,
     },
     {
+      id: 'w4',
       x: 0,
       y: 950,
       height: 50,
@@ -59,6 +64,7 @@ const initialState: GameState = {
       type: ObjectType.Other,
     },
     {
+      id: 'player',
       x: 50,
       y: 50,
       height: 50,
@@ -103,6 +109,7 @@ const render = (state: GameState) => {
       ctx.fillText(`Velocity Y: ${object.velocity.y}`, 10, 40);
       ctx.fillText(`Acceleration X: ${object.acceleration.x}`, 10, 60);
       ctx.fillText(`Acceleration Y: ${object.acceleration.y}`, 10, 80);
+      ctx.fillText(`Is colliding?: ${isColliding(object, state.objects)}`, 10, 100);
     }
   });
 }
