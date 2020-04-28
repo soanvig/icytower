@@ -1,5 +1,6 @@
 export type Behavior = <T extends GameObject>(obj: T, state: Readonly<GameState>) => void;
 export type MakeBehavior = (config: Config) => Behavior;
+export type StateFunction = (state: GameState) => GameState;
 
 export enum ObjectType {
   Player = 'player',
@@ -22,13 +23,12 @@ export interface GameObject {
 export interface Camera {
   x: number;
   y: number;
-  offsetX: number;
-  offsetY: number;
   width: number;
   height: number;
 }
 
 export interface GameState {
+  config: Config;
   width: number;
   height: number;
   keys: string[];
@@ -44,4 +44,5 @@ export interface Config {
   verticalMaxVelocity: number;
   friction: number;
   gravity: number;
+  cameraFreedom: { x: number; y: number; };
 }

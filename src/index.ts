@@ -17,19 +17,10 @@ const initialState: GameState = {
   width,
   height,
   keys: [],
-  camera: { x: 500, y: 500, offsetX: 0, offsetY: 0, width, height },
+  config,
+  camera: { x: 500, y: 500, width, height },
   objects: [
-    makeFloor(0, 900, 1000),
-    makeFloor(100, 800, 1000),
-    makeFloor(200, 700, 1000),
-    makeFloor(300, 600, 1000),
-    makeFloor(400, 500, 1000),
-    makeFloor(500, 400, 1000),
-    makeFloor(600, 300, 1000),
-    makeFloor(700, 200, 1000),
-    makeFloor(800, 100, 1000),
-    makeFloor(900, 0, 1000),
-    makeFloor(950, -100, 1000),
+    ...new Array(15).fill(0).map((_, i) => makeFloor(0 + i * 50, 1000 - i * 150, 1000 - i * 50)),
     {
       id: 'player',
       x: 475,
@@ -78,8 +69,8 @@ const render = (state: GameState) => {
       ctx.fillText(`Acceleration X: ${object.acceleration.x}`, 10, 60);
       ctx.fillText(`Acceleration Y: ${object.acceleration.y}`, 10, 80);
       ctx.fillText(`Is colliding?: ${isColliding(object, state.objects)}`, 10, 100);
-      ctx.fillText(`Camera Y: ${state.camera.y}`, 10, 120);
-      ctx.fillText(`Camera offset Y: ${state.camera.offsetY}`, 10, 140);
+      ctx.fillText(`Camera X: ${state.camera.x}`, 10, 120);
+      ctx.fillText(`Camera Y: ${state.camera.y}`, 10, 140);
       ctx.fillText(`Player X: ${player.x}`, 10, 160);
       ctx.fillText(`Player Y: ${player.y}`, 10, 180);
     }

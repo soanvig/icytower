@@ -8,4 +8,5 @@ export const config: Config = {
   verticalMaxVelocity: 100,
   friction: 0.6,
   gravity: 2,
+  cameraFreedom: { x: 200, y: 100 },
 }
