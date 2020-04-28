@@ -19,12 +19,21 @@ export interface GameObject {
   type: ObjectType;
 }
 
+export interface Camera {
+  x: number;
+  y: number;
+  offsetX: number;
+  offsetY: number;
+  width: number;
+  height: number;
+}
+
 export interface GameState {
   width: number;
   height: number;
   keys: string[];
   objects: GameObject[];
-  camera: { x: number; y: number; };
+  camera: Camera;
 }
 
 export interface Config {

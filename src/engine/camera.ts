@@ -1,28 +1,40 @@
-import { GameState, ObjectType } from '../types';
+import { GameState, ObjectType, Camera } from '../types';
+import { isValueNearby } from '../utils/isValueNearby';
 
 export const applyCamera = (state: GameState): GameState => {
   const player = state.objects.find(o => o.type === ObjectType.Player)!;
+  const availableOffset = 100;
 
-  const cameraFreedomY = state.height / 4;
-  const worldCenterY = state.height / 2;
-  const playerCenterY = player.y + player.height / 2;
+  let offsetY: number;
 
-  const cameraDiffY = state.camera.y - playerCenterY;
-  const offsetY = Math.max(0, Math.abs(cameraDiffY) - cameraFreedomY);
+  if (isValueNearby(player.y, state.camera.y, availableOffset)) {
+    offsetY = 0
+  } else {
+    const diff = Math.abs(player.y - state.camera.y) - availableOffset;
+    const sign = player.y < state.camera.y ? -1 : 1;
 
-  console.log(state.camera.y, cameraDiffY);
+    offsetY = diff * sign
+  }
 
-  const newCamera = {
-    x: state.camera.x,
-    y: state.camera.y + offsetY,
+
+  const newCamera: Camera = {
+    ...state.camera,
+    offsetY,
+    y: Math.min(state.camera.y + offsetY, state.camera.height / 2),
   }
 
   return {
     ...state,
     camera: newCamera,
+  }
+}
+
+export const mapObjectsToCamera = (state: GameState): GameState => {
+  return {
+    ...state,
     objects: state.objects.map(obj => ({
       ...obj,
-      y: obj.y + newCamera.y,
+      y: obj.y - state.camera.y + state.camera.height / 2,
     }))
   }
 }

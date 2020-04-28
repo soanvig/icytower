@@ -9,77 +9,31 @@ import { frictionBehavior } from './behaviors/frictionBehavior';
 import { config } from './config';
 import { gravityBehavior } from './behaviors/gravityBehavior';
 import { isColliding } from './utils/isColliding';
+import { makeFloor } from './utils/makeFloor';
 
+const width = 1000;
+const height = 1000;
 const initialState: GameState = {
-  width: 1000,
-  height: 1000,
+  width,
+  height,
   keys: [],
-  camera: { x: 0, y: 500 },
+  camera: { x: 500, y: 500, offsetX: 0, offsetY: 0, width, height },
   objects: [
-    {
-      id: 'w0',
-      x: 100,
-      y: 200,
-      height: 50,
-      width: 500,
-      velocity: { x: 0, y: 0 },
-      acceleration: { x: 0, y: 0 },
-      color: 'green',
-      behaviors: [],
-      type: ObjectType.Other,
-    },
-    {
-      id: 'w1',
-      x: 100,
-      y: 800,
-      height: 50,
-      width: 500,
-      velocity: { x: 0, y: 0 },
-      acceleration: { x: 0, y: 0 },
-      color: 'green',
-      behaviors: [],
-      type: ObjectType.Other,
-    },
-    {
-      id: 'w2',
-      x: 200,
-      y: 600,
-      height: 50,
-      width: 300,
-      velocity: { x: 0, y: 0 },
-      acceleration: { x: 0, y: 0 },
-      color: 'green',
-      behaviors: [],
-      type: ObjectType.Other,
-    },
-    {
-      id: 'w3',
-      x: 150,
-      y: 400,
-      height: 50,
-      width: 400,
-      velocity: { x: 0, y: 0 },
-      acceleration: { x: 0, y: 0 },
-      color: 'green',
-      behaviors: [],
-      type: ObjectType.Other,
-    },
-    {
-      id: 'w4',
-      x: 0,
-      y: 950,
-      height: 50,
-      width: 1000,
-      velocity: { x: 0, y: 0 },
-      acceleration: { x: 0, y: 0 },
-      color: 'green',
-      behaviors: [],
-      type: ObjectType.Other,
-    },
+    makeFloor(0, 900, 1000),
+    makeFloor(100, 800, 1000),
+    makeFloor(200, 700, 1000),
+    makeFloor(300, 600, 1000),
+    makeFloor(400, 500, 1000),
+    makeFloor(500, 400, 1000),
+    makeFloor(600, 300, 1000),
+    makeFloor(700, 200, 1000),
+    makeFloor(800, 100, 1000),
+    makeFloor(900, 0, 1000),
+    makeFloor(950, -100, 1000),
     {
       id: 'player',
-      x: 50,
-      y: 50,
+      x: 475,
+      y: 850,
       height: 50,
       width: 50,
       velocity: { x: 0, y: 0 },
@@ -107,6 +61,7 @@ primaryCanvas.setAttribute('height', `${initialState.height}px`);
 appendElement(primaryCanvas);
 
 const render = (state: GameState) => {
+  const player = state.objects.find(o => o.type === ObjectType.Player)!;
   const ctx = primaryCanvas.getContext('2d')!;
   ctx.clearRect(0, 0, state.width, state.height);
   ctx.fillStyle = 'aliceblue';
@@ -123,6 +78,10 @@ const render = (state: GameState) => {
       ctx.fillText(`Acceleration X: ${object.acceleration.x}`, 10, 60);
       ctx.fillText(`Acceleration Y: ${object.acceleration.y}`, 10, 80);
       ctx.fillText(`Is colliding?: ${isColliding(object, state.objects)}`, 10, 100);
+      ctx.fillText(`Camera Y: ${state.camera.y}`, 10, 120);
+      ctx.fillText(`Camera offset Y: ${state.camera.offsetY}`, 10, 140);
+      ctx.fillText(`Player X: ${player.x}`, 10, 160);
+      ctx.fillText(`Player Y: ${player.y}`, 10, 180);
     }
   });
 }

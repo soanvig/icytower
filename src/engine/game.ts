@@ -4,7 +4,7 @@ import { frames$ } from './frames';
 import { last, cloneDeep } from 'lodash';
 import { Observable } from 'rxjs';
 import { GameState } from '../types';
-import { applyCamera } from './camera';
+import { applyCamera, mapObjectsToCamera } from './camera';
 
 const framedKeys$: Observable<string[]> = keys$.pipe(
   buffer(frames$), // some keys pressed in between frames may get lost
@@ -38,4 +38,5 @@ export const createGame$ = (initialState: GameState) => frames$.pipe(
 
     return stateWithCamera;
   }, initialState),
+  map(mapObjectsToCamera)
 );
