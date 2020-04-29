@@ -45,4 +45,5 @@ export interface Config {
   friction: number;
   gravity: number;
   cameraFreedom: { x: number; y: number; };
+  cameraFollowSpeed: { x: number; y: number; };
 }

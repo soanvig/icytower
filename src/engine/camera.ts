@@ -1,17 +1,19 @@
 import { GameState, ObjectType, Camera, Config } from '../types';
 import { isValueNearby } from '../utils/isValueNearby';
 
-const computeOffset = ({ player, camera, freedom }: { player: number; camera: number; freedom: number }) => {
-  let offset: number;
+interface ComputeOffsetParams { player: number; camera: number; freedom: number; followSpeed: number; };
+const computeOffset = ({ player, camera, freedom, followSpeed }: ComputeOffsetParams) => {
+  let diff: number;
 
   if (isValueNearby(player, camera, freedom)) {
-    offset = 0
+    // Tries to center camera at player, but with delay if it's in freedom
+    diff = isValueNearby(player, camera, followSpeed) ? 0 : followSpeed;
   } else {
-    const diff = Math.abs(player - camera) - freedom;
-    const sign = player < camera ? -1 : 1;
-
-    offset = diff * sign
+    diff = Math.abs(player - camera) - freedom;
   }
+
+  const sign = player < camera ? -1 : 1;
+  const offset = diff * sign;
 
   return offset;
 }
@@ -23,12 +25,14 @@ export const applyCamera = (state: GameState): GameState => {
     player: player.x,
     camera: state.camera.x,
     freedom: state.config.cameraFreedom.x,
+    followSpeed: state.config.cameraFollowSpeed.x,
   });
 
   const offsetY = computeOffset({
     player: player.y,
     camera: state.camera.y,
     freedom: state.config.cameraFreedom.y,
+    followSpeed: state.config.cameraFollowSpeed.y,
   });
 
   const newCamera: Camera = {
