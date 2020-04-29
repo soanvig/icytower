@@ -4,9 +4,8 @@ import { frames$ } from './frames';
 import { last, cloneDeep } from 'lodash';
 import { Observable } from 'rxjs';
 import { GameState, GameObject, Behavior, StateFunction } from '../types';
-import { applyCamera, mapObjectsToCamera } from './camera';
+import { applyCamera, mapObjectsToCamera, applyCameraLimit } from './camera';
 import { flow } from 'lodash';
-
 
 /**
  * Apply behavior to object.
@@ -47,6 +46,7 @@ const withObjects = (): StateFunction => (state: GameState) => ({
  * Apply camera to state
  */
 const withCamera = (): StateFunction => applyCamera;
+const withCameraLimit = (): StateFunction => applyCameraLimit;
 
 export const createGame$ = (initialState: GameState) => frames$.pipe(
   withLatestFrom(framedKeys$),
@@ -54,6 +54,7 @@ export const createGame$ = (initialState: GameState) => frames$.pipe(
     withKeys(keys),
     withObjects(),
     withCamera(),
+    withCameraLimit(),
   )(state), initialState),
   map(mapObjectsToCamera)
 );
