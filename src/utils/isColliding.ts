@@ -5,7 +5,7 @@ export const getCollision = (object: GameObject, allObjects: GameObject[]): Game
   const otherObjects = allObjects.filter(o => o.id !== object.id);
   const collidingObject = otherObjects.find(
     other => (
-      isValueNearby(object.y + object.height, other.y, Math.max(object.velocity.y, 1))
+      isValueNearby(object.y - object.height, other.y, Math.max(Math.abs(object.velocity.y), 1))
       && object.x + object.width >= other.x
       && object.x <= other.x + other.width
     )

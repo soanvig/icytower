@@ -20,11 +20,11 @@ const initialState: GameState = {
   config,
   camera: { x: 500, y: 500, width, height },
   objects: [
-    makeFloor(0, 950, 1000, 0),
+    makeFloor(0, 50, 1000, 0),
     {
       id: 'player',
       x: 475,
-      y: 850,
+      y: 125,
       height: 50,
       width: 50,
       velocity: { x: 0, y: 0 },
@@ -51,6 +51,9 @@ primaryCanvas.setAttribute('height', `${initialState.height}px`);
 
 appendElement(primaryCanvas);
 
+/** Reverse Y so it is computed from bottom of canvas to top */
+const mapY = (y: number, height: number) => -1 * y + height;
+
 const render = (state: GameState) => {
   const player = state.objects.find(o => o.type === ObjectType.Player)!;
   const ctx = primaryCanvas.getContext('2d')!;
@@ -60,7 +63,7 @@ const render = (state: GameState) => {
 
   state.objects.forEach((object, i) => {
     ctx.fillStyle = object.color;
-    ctx.fillRect(object.x, object.y, object.width, object.height);
+    ctx.fillRect(object.x, mapY(object.y, state.height ), object.width, object.height);
 
     if (object.type === ObjectType.Player) {
       ctx.font = '16px sans-serif';
@@ -68,7 +71,7 @@ const render = (state: GameState) => {
       ctx.fillText(`Velocity Y: ${object.velocity.y}`, 10, 40);
       ctx.fillText(`Acceleration X: ${object.acceleration.x}`, 10, 60);
       ctx.fillText(`Acceleration Y: ${object.acceleration.y}`, 10, 80);
-      ctx.fillText(`Is colliding?: ${isColliding(object, state.objects)}`, 10, 100);
+      // ctx.fillText(`Is colliding?: ${isColliding(object, state.objects)}`, 10, 100);
       ctx.fillText(`Camera X: ${state.camera.x}`, 10, 120);
       ctx.fillText(`Camera Y: ${state.camera.y}`, 10, 140);
       ctx.fillText(`Player X: ${player.x}`, 10, 160);

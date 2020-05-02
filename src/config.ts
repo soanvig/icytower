@@ -7,7 +7,7 @@ export const config: Config = {
   verticalAccelerationHorizontalFactor: 0.6,
   verticalMaxVelocity: 100,
   friction: 0.6,
-  gravity: 2,
+  gravity: -2,
   cameraFreedom: { x: 1000, y: 200 },
   cameraFollowSpeed: { x: 0, y: 2 },
 }

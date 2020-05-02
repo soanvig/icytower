@@ -18,11 +18,11 @@ export const velocityBehavior: MakeBehavior =
 
     const collision = getCollision(obj, objects);
     if (
-      obj.velocity.y >= 0
+      obj.velocity.y <= 0
       && collision
     ) {
       obj.acceleration.y = 0;
       obj.velocity.y = 0;
-      obj.y = collision.y - obj.height;
+      obj.y = collision.y + obj.height;
     }
   }
