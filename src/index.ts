@@ -20,7 +20,7 @@ const initialState: GameState = {
   config,
   camera: { x: 500, y: 500, width, height },
   objects: [
-    ...new Array(15).fill(0).map((_, i) => makeFloor(0 + i * 50, 1000 - i * 150, 1000 - i * 50)),
+    makeFloor(0, 950, 1000, 0),
     {
       id: 'player',
       x: 475,

@@ -4,7 +4,7 @@ export type StateFunction = (state: GameState) => GameState;
 
 export enum ObjectType {
   Player = 'player',
-  Other = 'other',
+  Floor = 'floor',
 }
 
 export interface GameObject {
@@ -18,6 +18,14 @@ export interface GameObject {
   velocity: { x: number, y: number };
   acceleration: { x: number, y: number };
   type: ObjectType;
+}
+
+export interface Floor extends GameObject {
+  level: number;
+}
+
+export interface Player extends GameObject {
+  
 }
 
 export interface Camera {

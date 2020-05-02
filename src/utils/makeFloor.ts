@@ -1,9 +1,10 @@
 import { v4 } from 'uuid';
-import { ObjectType } from '../types';
+import { ObjectType, Floor } from '../types';
 import { getRandomColor } from './getRandomColor';
 
-export const makeFloor = (x: number, y: number, width: number) => ({
+export const makeFloor = (x: number, y: number, width: number, level: number): Floor => ({
   id: v4(),
+  level,
   x,
   y,
   width,
@@ -12,5 +13,5 @@ export const makeFloor = (x: number, y: number, width: number) => ({
   acceleration: { x: 0, y: 0 },
   color: `#${getRandomColor()}`,
   behaviors: [],
-  type: ObjectType.Other,
+  type: ObjectType.Floor,
 });
