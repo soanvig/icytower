@@ -53,7 +53,7 @@ export const applyCameraLimit = (state: GameState): GameState => {
     camera: {
       ...state.camera,
       // Limit camera so it doesn't go below screen lower edge
-      y: Math.min(state.camera.y, state.camera.height / 2),
+      // y: Math.min(state.camera.y, state.camera.height / 2),
     }
   }
 }

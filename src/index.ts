@@ -71,7 +71,7 @@ const render = (state: GameState) => {
       ctx.fillText(`Velocity Y: ${object.velocity.y}`, 10, 40);
       ctx.fillText(`Acceleration X: ${object.acceleration.x}`, 10, 60);
       ctx.fillText(`Acceleration Y: ${object.acceleration.y}`, 10, 80);
-      // ctx.fillText(`Is colliding?: ${isColliding(object, state.objects)}`, 10, 100);
+      ctx.fillText(`Is colliding?: ${isColliding(object, state.objects)}`, 10, 100);
       ctx.fillText(`Camera X: ${state.camera.x}`, 10, 120);
       ctx.fillText(`Camera Y: ${state.camera.y}`, 10, 140);
       ctx.fillText(`Player X: ${player.x}`, 10, 160);

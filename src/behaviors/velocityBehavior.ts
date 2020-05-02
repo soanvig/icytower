@@ -8,7 +8,6 @@ export const velocityBehavior: MakeBehavior =
 
     // Limit movement
     obj.x = Math.min(Math.max(obj.x, 0), width - obj.width);
-    obj.y = Math.min(obj.y, height - obj.height);
 
     // Stop acceleration after hitting wall
     if (obj.x === 0 || obj.x === width - obj.width) {

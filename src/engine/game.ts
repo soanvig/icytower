@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { GameState, GameObject, Behavior, StateFunction } from '../types';
 import { applyCamera, mapObjectsToCamera, applyCameraLimit } from './camera';
 import { flow } from 'lodash';
+import { withFloorGen } from '../floors/floorGen';
 
 /**
  * Apply behavior to object.
@@ -52,6 +53,7 @@ export const createGame$ = (initialState: GameState) => frames$.pipe(
   withLatestFrom(framedKeys$),
   scan((state, [_, keys]) => flow(
     withKeys(keys),
+    withFloorGen(),
     withObjects(),
     withCamera(),
     withCameraLimit(),
